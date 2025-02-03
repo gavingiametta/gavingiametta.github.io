@@ -45,66 +45,65 @@
         capacitance and then moves the servo motor. The servo motor will move to a certain angle based off the capacitance.
     <div>
       <code>
-        #include <CapacitiveSensor.h>
-        #include <Servo.h>
-        
-        // Sets up servo object
-        Servo myServo;
-        // Sets up capacitive sensor object
-        CapacitiveSensor cs_4_2 = CapacitiveSensor(4,2); 
-        
-        // Minimum value of sensor
-        int sensorMin = 0;
-        // Maximum value of sensor
-        int sensorMax = 1023;
-        // Initializes sensorValue
-        int sensorValue = 0;
-        
-        void setup() {
-          // Sets data transfer rate
-          Serial.begin(9600);
-          
-          // Sets up servo output
-          myServo.attach(9);
-        
-          // Gives us a start up time to calibrate
-          // External Source: https://docs.arduino.cc/built-in-examples/analog/Calibration/
-          while (millis() < 5000) {
-            // Reads output from capacitive sensor
-            long sensorValue =  cs_4_2.capacitiveSensor(30);
-            
-            // Used to calibrate max value of sensor
-            if (sensorValue > sensorMax) {
-              sensorMax = sensorValue;
-            }
-            
-            // Used to calibrate min value of sensor
-            if (sensorValue < sensorMin) {
-              sensorMin = sensorValue;
-            }
-          }
-          
-        }
-        
-        void loop()               	 
-        {
-          
-          // Reads output from capacitive sensor
-          long sensorValue =  cs_4_2.capacitiveSensor(30);
-        
-          // Calibrates previously read max and min values to a range of 0-180
-          sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 180);
-        
-          // Gives input value to servo
-          myServo.write(sensorValue);
-          // Delay to give servo a chance to move
-          delay(15);
-          
-          // Prints whatever is being input into servo
-          Serial.println(sensorValue);
-          // delay to limit data to serial port
-          delay(100);                         	
-        } 
+        #include <CapacitiveSensor.h><br>
+        #include <Servo.h><br>
+        <br>
+        // Sets up servo object<br>
+        Servo myServo;<br>
+        // Sets up capacitive sensor object<br>
+        CapacitiveSensor cs_4_2 = CapacitiveSensor(4,2);<br>
+        <br>
+        // Minimum value of sensor<br>
+        int sensorMin = 0;<br>
+        // Maximum value of sensor<br>
+        int sensorMax = 1023;<br>
+        // Initializes sensorValue<br>
+        int sensorValue = 0;<br>
+        <br>
+        void setup() {<br>
+          // Sets data transfer rate<br>
+          Serial.begin(9600);<br>
+        <br>
+          // Sets up servo output<br>
+          myServo.attach(9);<br>
+        <br>
+          // Gives us a start up time to calibrate<br>
+          // External Source: https://docs.arduino.cc/built-in-examples/analog/Calibration/<br>
+          while (millis() < 5000) {<br>
+            // Reads output from capacitive sensor<br>
+            long sensorValue =  cs_4_2.capacitiveSensor(30);<br>
+        <br>
+            // Used to calibrate max value of sensor<br>
+            if (sensorValue > sensorMax) {<br>
+              sensorMax = sensorValue;<br>
+            }<br>
+        <br>
+            // Used to calibrate min value of sensor<br>
+            if (sensorValue < sensorMin) {<br>
+              sensorMin = sensorValue;<br>
+            }<br>
+          }<br> 
+        }<br>
+        <br>
+        void loop()<br>               	 
+        {<br>
+        <br>  
+          // Reads output from capacitive sensor<br>
+          long sensorValue =  cs_4_2.capacitiveSensor(30);<br>
+        <br>
+          // Calibrates previously read max and min values to a range of 0-180<br>
+          sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 180);<br>
+        <br>
+          // Gives input value to servo<br>
+          myServo.write(sensorValue);<br>
+          // Delay to give servo a chance to move<br>
+          delay(15);<br>
+        <br>
+          // Prints whatever is being input into servo<br>
+          Serial.println(sensorValue);<br>
+          // delay to limit data to serial port<br>
+          delay(100);<br>                    	
+        }<br> 
       </code>
     </div>
 
