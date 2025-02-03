@@ -46,8 +46,8 @@
     <div>
       <code>
         <pre>
-          #include <CapacitiveSensor.h>
-          #include <Servo.h>
+          #include &lt;CapacitiveSensor.h&gt;
+          #include &lt;Servo.h&gt;
           
           // Sets up servo object
           Servo myServo;
@@ -70,17 +70,17 @@
           
             // Gives us a start up time to calibrate
             // External Source: https://docs.arduino.cc/built-in-examples/analog/Calibration/
-            while (millis() < 5000) {
+            while (millis() &lt; 5000) {
               // Reads output from capacitive sensor
               long sensorValue =  cs_4_2.capacitiveSensor(30);
               
               // Used to calibrate max value of sensor
-              if (sensorValue > sensorMax) {
+              if (sensorValue &gt; sensorMax) {
                 sensorMax = sensorValue;
               }
               
               // Used to calibrate min value of sensor
-              if (sensorValue < sensorMin) {
+              if (sensorValue &lt; sensorMin) {
                 sensorMin = sensorValue;
               }
             }  
