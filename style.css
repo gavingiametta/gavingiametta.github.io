@@ -28,6 +28,15 @@ body {
   margin: auto;
 }
 
+code {
+  font-family: "Inter", sans-serif;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  max-width: 1000px;
+  padding: 2em;
+  margin: auto;
+}
+
 h1 {
   font-weight: 800;
 }

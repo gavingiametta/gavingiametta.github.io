@@ -14,7 +14,7 @@
     </div>
 
     <div class="header">
-      <h2>Overview</h2>
+      <h2>Schematic</h2>
     </div>
 
     <div>
@@ -25,5 +25,88 @@
         The servo motor is connected to pin 9 which is used to control the angle of the motor.
       </body>
     </div>
+
+    <div class="header">
+      <h2>Circuit</h2>
+    </div>
+
+    <div>
+      <body>Here is the actual circuit itself. The capacitive sensor is plugged into a breadboard to make it easier to understand.
+        The servo motor is plugged straight into the breadboard out of convinience.
+      </body>
+    </div>
+
+    <div class="header">
+      <h2>Circuit</h2>
+    </div>
+
+    <div>
+      <body>Here is the code that was used to get the system to work properly. When the sensor is touched it determines the
+        capacitance and then moves the servo motor. The servo motor will move to a certain angle based off the capacitance.
+    <div>
+      <code>
+        #include <CapacitiveSensor.h>
+        #include <Servo.h>
+        
+        // Sets up servo object
+        Servo myServo;
+        // Sets up capacitive sensor object
+        CapacitiveSensor cs_4_2 = CapacitiveSensor(4,2); 
+        
+        // Minimum value of sensor
+        int sensorMin = 0;
+        // Maximum value of sensor
+        int sensorMax = 1023;
+        // Initializes sensorValue
+        int sensorValue = 0;
+        
+        void setup() {
+          // Sets data transfer rate
+          Serial.begin(9600);
+          
+          // Sets up servo output
+          myServo.attach(9);
+        
+          // Gives us a start up time to calibrate
+          // External Source: https://docs.arduino.cc/built-in-examples/analog/Calibration/
+          while (millis() < 5000) {
+            // Reads output from capacitive sensor
+            long sensorValue =  cs_4_2.capacitiveSensor(30);
+            
+            // Used to calibrate max value of sensor
+            if (sensorValue > sensorMax) {
+              sensorMax = sensorValue;
+            }
+            
+            // Used to calibrate min value of sensor
+            if (sensorValue < sensorMin) {
+              sensorMin = sensorValue;
+            }
+          }
+          
+        }
+        
+        void loop()               	 
+        {
+          
+          // Reads output from capacitive sensor
+          long sensorValue =  cs_4_2.capacitiveSensor(30);
+        
+          // Calibrates previously read max and min values to a range of 0-180
+          sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 180);
+        
+          // Gives input value to servo
+          myServo.write(sensorValue);
+          // Delay to give servo a chance to move
+          delay(15);
+          
+          // Prints whatever is being input into servo
+          Serial.println(sensorValue);
+          // delay to limit data to serial port
+          delay(100);                         	
+        } 
+      </code>
+    </div>
+
   </body>
 </html>
